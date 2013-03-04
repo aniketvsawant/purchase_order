@@ -95,8 +95,9 @@
                 {
                   type: 'GET',
                   url: 'http://localhost:8080/restful/resources/purchaseorder/createpo/' + poname + '/' + prodname + '/' + qty + '/' + unitprice + '/' + totalprice + '/' + shiptoaddr,
-                  data: "",
+                  data: "{}",
                   contentType: "application/json",
+				  dataType: "jsonp",
                   cache: false,
 				  crossDomain: true,
                   //"Access-Control-Allow-Origin": "*",
