@@ -1,0 +1,168 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<title>Create a new purchase order</title> 
+<meta name="description" content="Create a new purchase order"> 
+<link href="twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>New Purchase Order</legend>
+            
+            <div class="control-group">
+              <label class="control-label" for="txtPOName">Name</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="txtPOName">
+                <p class="help-block">Enter the name of the purchase order</p>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="cmbProduct">Product</label>
+              <div class="controls">
+                <select id="cmbProduct" onchange="getUnitPrice();">
+                  <option>Select a product</option>
+                  <option>Product1</option>
+                  <option>Product2</option>
+                  <option>Product3</option>
+                  <option>Product4</option>
+                  <option>Product5</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="control-group">
+              <label class="control-label" for="txtUnitPrice">Unit price</label>
+              <div class="controls">
+                <input type="text" readonly class="input-small" id="txtUnitPrice" align="left">
+              </div>              
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="txtQty">Quantity</label>
+              <div class="controls">
+                <input type="text" class="input-small" id="txtQty" align="center" onblur="calculateTotalPrice();">
+              </div>
+            </div>
+          
+            <div class="control-group">
+              <label class="control-label" for="txtTotalPrice">Total Price</label>
+              <div class="controls">
+                <input type="text" readonly class="input-small" id="txtTotalPrice" align="center">
+              </div>              
+            </div>
+          
+            <div class="control-group">
+              <label class="control-label" for="txtShipAddr">Shipping Address</label>
+              <div class="controls">
+                <textarea class="input-xlarge" id="txtShipAddr" rows="3"></textarea>
+              </div>
+            </div>
+          
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" onclick="createPO()">Create</button>
+              <button type="button" class="btn" onclick="gotoHomePage()">Cancel</button>
+            </div>
+
+          </fieldset>
+         </form>
+       </div>
+      </div>
+    </div>
+
+    <script>
+
+    
+    function createPO() {
+      //window.alert("createpo");
+      jQuery.support.cors = true;
+      var poname = document.forms[0].txtPOName.value;
+      //var prodname = document.forms[0].cmbProduct.options[document.forms[0].cmbProduct.selectedIndex].text;
+      var index = document.forms[0].cmbProduct.selectedIndex;
+      var prodname = document.forms[0].cmbProduct.options[index].text;
+      var qty = document.forms[0].txtQty.value;
+      var unitprice = document.forms[0].txtUnitPrice.value;
+      var totalprice = document.forms[0].txtTotalPrice.value;
+      var shiptoaddr = document.forms[0].txtShipAddr.value;
+
+          $.ajax(
+                {
+                  type: 'GET',
+                  url: 'http://localhost:8080/restful/resources/purchaseorder/createpo/' + poname + '/' + prodname + '/' + qty + '/' + unitprice + '/' + totalprice + '/' + shiptoaddr,
+                  data: "",
+                  contentType: "application/json",
+                  cache: false,
+                  //"Access-Control-Allow-Origin": "*",
+                  success: function () {
+                    window.location="./responsepage.html?page=create" + "&poname=" + poname;
+                  },
+                  error: function (msg, url, line) {
+                        //alert('error trapped in error: function(msg, url, line)');
+                        //falert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
+                        window.location="./responsepage.html?page=create" + "&poname=" + poname;
+                  }
+                });
+          }
+
+    function getUnitPrice() {
+      switch (document.forms[0].cmbProduct.selectedIndex) {
+        case 1:
+          document.forms[0].txtUnitPrice.value = 100;
+          document.forms[0].txtQty.value = "";
+          document.forms[0].txtTotalPrice.value = "";
+          break;
+        case 2:
+          document.forms[0].txtUnitPrice.value = 110;
+          document.forms[0].txtQty.value = "";
+          document.forms[0].txtTotalPrice.value = "";
+          break;
+        case 3:
+          document.forms[0].txtUnitPrice.value = 120;
+          document.forms[0].txtQty.value = "";
+          document.forms[0].txtTotalPrice.value = "";
+          break;
+        case 4:
+          document.forms[0].txtUnitPrice.value = 130;
+          document.forms[0].txtQty.value = "";
+          document.forms[0].txtTotalPrice.value = "";
+          break;
+        case 5:
+          document.forms[0].txtUnitPrice.value = 140;
+          document.forms[0].txtQty.value = "";
+          document.forms[0].txtTotalPrice.value = "";
+          break;      
+        }
+    }
+
+    function calculateTotalPrice() {
+      document.forms[0].txtTotalPrice.value = 
+        document.forms[0].txtUnitPrice.value * document.forms[0].txtQty.value;
+    }
+
+    function gotoHomePage() {
+      window.location.href = "homepage.html";
+    }
+
+    </script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/jquery.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-transition.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-alert.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-modal.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-dropdown.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-tab.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-tooltip.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-popover.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-button.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-collapse.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-carousel.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-typeahead.js"></script>
+    
+  </body>
+</html>

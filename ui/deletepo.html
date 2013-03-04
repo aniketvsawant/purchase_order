@@ -1,0 +1,153 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<title>Delete an existing Purchase Order</title> 
+<meta name="description" content="Twitter Bootstrap Version2.0 search form layout example from w3resource.com."> 
+<link href="twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet">
+</head>
+<body onload="showandhideforms();">
+  
+  <div class="container">
+    <div class="row">
+    <div class="span12">
+<form id="searchform" class="well form-search">
+	<fieldset>
+		<legend>Enter the Purchase Order ID to be deleted</legend>
+	<label class="control-label" for="txtPOName">ID</label>
+	<input type="text" id="txtPOName" class="input-medium search-query">
+  <button type="button" class="btn" onclick="getPODetails()">Retrieve PO</button>
+</fieldset>
+</form>
+</div>
+</div>
+</div>
+
+<div class="container">
+    <div class="row">
+      <div class="span12">
+        <form id="detailsform" class="form-horizontal">
+          <fieldset>
+            <legend>Purchase Order Details</legend>
+            
+            <div class="control-group">
+              <label class="control-label" for="txtProduct">Product</label>
+              <div class="controls">
+               <input type="text" readonly class="input-small" id="txtProduct">
+              </div>
+            </div>
+
+              <div class="control-group">
+              <label class="control-label" for="txtUnitPrice">Unit price</label>
+              <div class="controls">
+                <input type="text" readonly class="input-small" id="txtUnitPrice" align="left">
+              </div>              
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="txtQty">Quantity</label>
+              <div class="controls">
+                <input type="text" readonly class="input-small" id="txtQty" align="center" onblur="calculateTotalPrice();">
+              </div>
+            </div>
+          
+            <div class="control-group">
+              <label class="control-label" for="txtTotalPrice">Total Price</label>
+              <div class="controls">
+                <input type="text" readonly class="input-small" id="txtTotalPrice" align="center">
+              </div>              
+            </div>
+          
+            <div class="control-group">
+              <label class="control-label" for="txtShipAddr">Shipping Address</label>
+              <div class="controls">
+                <textarea class="input-xlarge" readonly id="txtShipAddr" rows="3"></textarea>
+              </div>
+            </div>
+          
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" onclick="deletePODetails()">Delete</button>
+              <button type="button" class="btn" onclick="gotoHomePage()">Cancel</button>
+            </div>
+         </fieldset>
+        </form>
+      </div>
+     </div>
+    </div>
+<script>
+
+function showandhideforms() {
+	document.getElementById("searchform").style.visibility = 'visible';
+	document.getElementById("detailsform").style.visibility = 'hidden';
+}
+
+function getPODetails() {
+	jQuery.support.cors = true;
+	var poname = document.forms[0].txtPOName.value;
+	$.ajax( {
+		type: 'GET',
+		url: 'http://localhost:8080/restful/resources/purchaseorder/getpodetails/' + poname,
+		contentType: "application/json",
+		data: "",
+		cache: false,
+		success: function (jsonData) {
+      if (jsonData.length === 0) {
+        document.getElementById("detailsform").style.visibility = 'hidden';
+        window.alert("No matching records found");
+        return;
+      }
+      document.getElementById("detailsform").style.visibility = 'visible';
+			for (var i=0; i<jsonData.length; i++) {
+				document.forms[1].txtProduct.value = jsonData[i].product;
+				document.forms[1].txtQty.value = jsonData[i].qty;
+				document.forms[1].txtUnitPrice.value = jsonData[i].unitprice;
+				document.forms[1].txtTotalPrice.value = jsonData[i].totalprice;
+				document.forms[1].txtShipAddr.value = jsonData[i].shiptoaddress;
+			}
+		},
+		error: function(msg, url, line) {
+			window.alert (msg + ' : ' + url + ' : ' + line);
+		}
+	});	
+ }
+
+  function gotoHomePage() {
+      window.location.href = "homepage.html";
+  }
+
+  function deletePODetails() {
+    jQuery.support.cors = true;
+    document.getElementById("detailsform").style.visibility = 'visible';
+    var poname = document.forms[0].txtPOName.value;
+    $.ajax( {
+      type: 'GET',
+      url: 'http://localhost:8080/restful/resources/purchaseorder/deletepo/' + poname,
+      contentType: "application/json",
+      data: "",
+      cache: false,
+      success: function (jsonData) {
+        window.location="./responsepage.html?page=delete" + "&poname=" + poname;
+      },
+      error: function(msg, url, line) {
+        window.location="./responsepage.html?page=delete" + "&poname=" + poname;
+      }
+  });
+ }
+
+</script>
+<script src="twitter-bootstrap-v2/docs/assets/js/jquery.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-transition.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-alert.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-modal.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-dropdown.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-tab.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-tooltip.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-popover.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-button.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-collapse.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-carousel.js"></script>
+    <script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-typeahead.js"></script>
+
+</body>
+</html>

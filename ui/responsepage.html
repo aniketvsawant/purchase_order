@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html>
+<body>
+
+  <div class="container">
+     <form class="form-horizontal">
+          <center>           
+              <button type="button" align="center" class="btn" onclick="gotoHomePage()">Ok</button>
+           </center>   	      
+        </form>
+    </div>
+
+<script>
+
+	//function showmessage() {
+		var prevpage = getParamValue("page");
+		var poname = getParamValue("poname");
+		var msg = "";
+		if (prevpage === 'delete')
+			msg = "The PO with ID " + poname + " is successfully deleted";
+		if (prevpage === 'update')
+			msg = "The PO with ID " + poname + " is successfully updated";
+		if (prevpage === 'create')
+			msg = "The PO with ID " + poname + " is successfully created";	
+	
+		document.write("<center>"+msg+"</center>");
+	//}
+	
+	function getParamValue(varname) {
+		var url = window.location.href;
+		var qparts = url.split("?");
+		if (qparts.length == 0) {
+			return "";
+		}
+		var query = qparts[1];
+		var vars = query.split("&");
+		var value = "";
+		for (i=0;i<vars.length;i++) {
+			var parts = vars[i].split("=");
+			if (parts[0] == varname) {
+				value = parts[1];
+				break;
+			}
+		}
+		value = unescape(value);
+		value.replace(/\+/g," ");
+		return value.replace(/\+/g," ");
+	}
+
+	function gotoHomePage() {
+		window.location.href = "homepage.html";
+	}
+
+     </script>
+  </body>
+</html>
