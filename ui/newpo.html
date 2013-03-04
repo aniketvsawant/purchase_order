@@ -94,7 +94,7 @@
           $.ajax(
                 {
                   type: 'GET',
-                  url: 'http://localhost:8080/restful/resources/purchaseorder/createpo/' + poname + '/' + prodname + '/' + qty + '/' + unitprice + '/' + totalprice + '/' + shiptoaddr,
+                  url: '/restful/resources/purchaseorder/createpo/' + poname + '/' + prodname + '/' + qty + '/' + unitprice + '/' + totalprice + '/' + shiptoaddr,
                   dataType: "jsonp",
 				  jsonp: false,
 				  async: false,
