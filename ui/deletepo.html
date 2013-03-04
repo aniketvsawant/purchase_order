@@ -86,7 +86,7 @@ function getPODetails() {
 	var poname = document.forms[0].txtPOName.value;
 	$.ajax( {
 		type: 'GET',
-		url: 'http://localhost:8080/restful/resources/purchaseorder/getpodetails/' + poname,
+		url: '/restful/resources/purchaseorder/getpodetails/' + poname,
 		contentType: "application/json",
 		data: "",
 		cache: false,
@@ -122,7 +122,7 @@ function getPODetails() {
     var poname = document.forms[0].txtPOName.value;
     $.ajax( {
       type: 'GET',
-      url: 'http://localhost:8080/restful/resources/purchaseorder/deletepo/' + poname,
+      url: '/restful/resources/purchaseorder/deletepo/' + poname,
       contentType: "application/json",
       data: "",
       cache: false,

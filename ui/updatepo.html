@@ -90,7 +90,7 @@ function getPODetails() {
 	var poname = document.forms[0].txtPOName.value;
 	$.ajax( {
 		type: 'GET',
-		url: 'http://localhost:8080/restful/resources/purchaseorder/getpodetails/' + poname,
+		url: '/restful/resources/purchaseorder/getpodetails/' + poname,
 		contentType: "application/json",
 		data: "",
 		cache: false,
@@ -131,7 +131,7 @@ function getPODetails() {
     var shiptoaddr = document.forms[1].txtShipAddr.value;
 	$.ajax( {
 		type: 'GET',
-		url: 'http://localhost:8080/restful/resources/purchaseorder/updatepo/' + poname + '/' + prodname + '/' + qty + '/' + unitprice + '/' + totalprice + '/' + shiptoaddr,
+		url: '/restful/resources/purchaseorder/updatepo/' + poname + '/' + prodname + '/' + qty + '/' + unitprice + '/' + totalprice + '/' + shiptoaddr,
 		contentType: "application/json",
 		data: "",
 		cache: false,
