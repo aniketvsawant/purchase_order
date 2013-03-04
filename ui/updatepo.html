@@ -94,6 +94,7 @@ function getPODetails() {
 		contentType: "application/json",
 		data: "",
 		cache: false,
+		crossDomain: true,
 		success: function (jsonData) {
 			if (jsonData.length === 0) {
 			  document.getElementById("detailsform").style.visibility = 'hidden';
@@ -134,6 +135,7 @@ function getPODetails() {
 		contentType: "application/json",
 		data: "",
 		cache: false,
+		crossDomain: true,
 		success: function () {
 			window.location="./responsepage.html?page=update" + "&poname=" + poname;
 		},
