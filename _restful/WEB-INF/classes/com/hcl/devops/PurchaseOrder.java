@@ -149,6 +149,7 @@ import java.net.URL;
 	   		USER = prop.getProperty("user");
 	   		PASS = prop.getProperty("pass");
 	
+
 		   Class.forName(JDBC_DRIVER);
 		   conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		   stmt = conn.createStatement();
