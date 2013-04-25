@@ -25,7 +25,11 @@ import java.net.URL;
      /* poname, product, unitprice, qty, totalprice, shiptoaddress */
      public String createPO(@PathParam("poname") String poname, @PathParam("product") String product, @PathParam("qty") int qty, @PathParam("unitprice") int unitprice, @PathParam("totalprice") int totalprice, @PathParam("shiptoaddress") String shiptoaddress) 
      {   	  
-           ////System.out.println("Product Name" + poname);
+<<<<<<< HEAD
+           ///System.out.println("Product Name" + poname);
+========
+           System.out.println("Product Name: " + poname);
+>>>>>>> bc2150b00031af7800b18eec693d4daa6d1b6d82
 	   String JDBC_DRIVER = null;
 	   String DB_URL = null;
 	   String USER = null;
@@ -149,6 +153,7 @@ import java.net.URL;
 	   		USER = prop.getProperty("user");
 	   		PASS = prop.getProperty("pass");
 	
+
 		   Class.forName(JDBC_DRIVER);
 		   conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		   stmt = conn.createStatement();
