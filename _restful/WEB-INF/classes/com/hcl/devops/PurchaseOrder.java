@@ -26,11 +26,6 @@ import java.net.URL;
      /* poname, product, unitprice, qty, totalprice, shiptoaddress */
      public String createPO(@PathParam("poname") String poname, @PathParam("product") String product, @PathParam("qty") int qty, @PathParam("unitprice") int unitprice, @PathParam("totalprice") int totalprice, @PathParam("shiptoaddress") String shiptoaddress) 
      {   	  
-/*<<<<<<< HEAD
-           ////System.out.println("Product Name" + poname);
-=======
-           System.out.println("Product Name: " + poname);
->>>>>>> bc2150b00031af7800b18eec693d4daa6d1b6d82 */
 
 	   System.out.println("Product Name: " + poname);
 	   String JDBC_DRIVER = null;
