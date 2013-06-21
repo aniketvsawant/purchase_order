@@ -27,7 +27,7 @@ import java.net.URL;
      public String createPO(@PathParam("poname") String poname, @PathParam("product") String product, @PathParam("qty") int qty, @PathParam("unitprice") int unitprice, @PathParam("totalprice") int totalprice, @PathParam("shiptoaddress") String shiptoaddress) 
      {   	  
 
-	   //System.out.println("Product Name: " + poname);
+	   System.out.println("Product Name: " + poname);
 	   String JDBC_DRIVER = null;
 	   String DB_URL = null;
 	   String USER = null;
